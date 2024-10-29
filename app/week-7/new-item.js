@@ -2,7 +2,7 @@
 
 import {useState} from "react";
 
-function NewItem(){
+function NewItem( {onAddItem} ){
 
     const [name, setName] = useState("");
     const [quantity, setQuantity] = useState(1);
@@ -25,15 +25,20 @@ function NewItem(){
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const item = {name, quantity, category};
-        console.log('New Item:', item);
+        const newItem = {
+            id: Math.random().toString(36).substr(2, 9),
+            name, 
+            quantity, 
+            category,
+        };
 
-        alert(`Item added:\nName: ${name}\nQuantity: ${quantity}\nCategory: ${category}`);
+        onAddItem(newItem);
 
         setName("");
         setQuantity(1);
         setCategory("produce");
     };
+
 
     return (
         <form onSubmit={handleSubmit} className="p-6 bg-gray-800 rounded-md shadow-lg max-w-md mx-auto">
